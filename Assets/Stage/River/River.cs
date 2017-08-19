@@ -51,6 +51,8 @@ public class River : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	void Update ()
 	{
-		
+		if(transCam.position.y > _t.position.y+240+32){
+			_t.position = new Vector3(0, _t.position.y+480+64, 0);
+		}
 	}
 }

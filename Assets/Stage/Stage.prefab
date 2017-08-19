@@ -53,6 +53,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefStone: {fileID: 114121167598011782, guid: cf6f1e31a19028f47b4c19f23b8031f0,
     type: 2}
-  prefRiver:
-  - {fileID: 114259577119817896, guid: dde7fd14f389406499ae8e94913ba7e6, type: 2}
+  prefRiver: {fileID: 114259577119817896, guid: dde7fd14f389406499ae8e94913ba7e6,
+    type: 2}
   transCam: {fileID: 0}
