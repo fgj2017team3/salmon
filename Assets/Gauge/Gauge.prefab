@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 4955830705659476}
   - component: {fileID: 212720459061992812}
   m_Layer: 0
-  m_Name: base
+  m_Name: baseW
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69,7 +69,7 @@ GameObject:
   - component: {fileID: 4401183514781010}
   - component: {fileID: 212320263163025288}
   m_Layer: 0
-  m_Name: base (1)
+  m_Name: baseB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gaugeSprite: {fileID: 212662817758161068}
-  val: 0
+  rate: 0
 --- !u!212 &212320263163025288
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -173,7 +173,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1436123407
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 50059fe6cc634814b90bd4e30d4af2a7, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
@@ -215,7 +215,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1436123407
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 50059fe6cc634814b90bd4e30d4af2a7, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
@@ -257,7 +257,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1436123407
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 50059fe6cc634814b90bd4e30d4af2a7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

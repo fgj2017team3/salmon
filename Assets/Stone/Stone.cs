@@ -1,4 +1,4 @@
-﻿// Gauge.cs 
+﻿// Stone.cs 
 //
 // @idev Unity2017.1.0f3 / MonoDevelop5.9.6
 // @auth FCEI.No-Va
@@ -12,43 +12,50 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //----------------------------------------------------------------------------------------------------
-// ゲージ管理 
+// 石ころの管理  
 //----------------------------------------------------------------------------------------------------
-public class Gauge : MonoBehaviour
+public class Stone : MonoBehaviour
 {
 	//--------------------------------------------------------------------------------
-	// メンバ変数 
+	// メンバ変数  
 	//--------------------------------------------------------------------------------
-	Transform _t; 	// 高速化用Transform 
+	static List<Stone> stones = new List<Stone>();		// 石リスト 
 
-
-	[SerializeField]SpriteRenderer gaugeSprite;	// メインゲージ 
-	float maxScale;								// 最大時のスケール 
-
-	public int val;								// ゲーイガ参照する値 
+	[SerializeField]BoxCollider2D collid;				// 当たり判定 
 
 
 
 	//--------------------------------------------------------------------------------
 	// コンストラクタ 
 	//--------------------------------------------------------------------------------
-	void Awake ()
-	{
-		// Transfomr保持 
-		_t = gaugeSprite.gameObject.transform;
+	void Awake (){ stones.Add(this); }
 
-		// デフォルト値の設定 
-		maxScale = _t.localScale.x;
+	//--------------------------------------------------------------------------------
+	// デストラクタ 
+	//--------------------------------------------------------------------------------
+	void OnDestroy(){ stones.Remove(this); }
+
+
+
+	//--------------------------------------------------------------------------------
+	// 指定したポジションが石なのかどうか調べる 
+	//--------------------------------------------------------------------------------
+	public static bool CheckStones (float x, float y)
+	{
+		foreach(Stone s in stones){
+			if(s.IsStone(x,y)){ return true; }
+		}
+
+		return false;
 	}
 
 
 
 	//--------------------------------------------------------------------------------
-	// 更新 
+	// 指定したポジションが石なのかどうか調べる(個別) 
 	//--------------------------------------------------------------------------------
-	void Update ()
+	public bool IsStone (float x, float y)
 	{
-		_t.localScale    = new Vector3(maxScale * val / 100, 16, 16);
-		_t.localPosition = new Vector3(-maxScale * (100-val) / 200, 0, 0);
+		return collid.OverlapPoint(new Vector2(x,y));
 	}
 }

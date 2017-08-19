@@ -21,12 +21,12 @@ public class Salmon : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	Transform _t; 	// 高速化用Transform 
 
-	//-------- パラメータ --------//
-	//public int resilient{ get; private set; }	// 活力 
-	public int resilient;						// 活力 
+	//-------- 内部パラメータ --------//
+	public int resilient{ get; private set; }	// 活力 
+	float time;									// 経過時間 
 
-	//-------- アタッチ --------//
-	[SerializeField]Gauge gauge;				// UI 
+	//-------- UI --------//
+	[SerializeField]Gauge gauge;				// 活力ゲージ 
 
 
 
@@ -49,6 +49,8 @@ public class Salmon : MonoBehaviour
 	void Initialize ()
 	{
 		resilient = MAX_RESILIENT;
+		time = 0;
+
 		_t.position = Vector3.zero;
 	}
 
@@ -73,8 +75,32 @@ public class Salmon : MonoBehaviour
 			_t.position = new Vector3(_t.position.x+GetSpeed(), _t.position.y, _t.position.z);
 		}
 
+
+
+		// 減衰 
+		if(time > 0.5f){
+			Decline(1);
+			time -= 0.5f;
+		}
+
+
+
+		// debug //
+		if(Input.GetKeyDown(KeyCode.Space)){
+			Debug.Log(Stone.CheckStones(_t.position.x, _t.position.y));	
+		}
+		if(Input.GetKeyDown(KeyCode.KeypadEnter)){
+			resilient = MAX_RESILIENT;
+		}
+		// debug //
+
+
+
 		// 表示の更新 
-		gauge.val = resilient;
+		gauge.val = (float)resilient / 100;
+
+		// 時間経過を取得 
+		time += Time.deltaTime;
 	}
 
 
@@ -98,6 +124,8 @@ public class Salmon : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	float GetSpeed ()
 	{
+		if(resilient <= 0){ return 0; }
+
 		return Mathf.Sqrt(resilient)+1;
 	}
 
