@@ -39,6 +39,10 @@ public class ResidentsScript : MonoBehaviour {
 					salmon.resilient += resilientRecoverNum;
 					isHit = true;
 				}
+
+				if (hitColliders.gameObject.GetComponent<Stone>()) {
+					Destroy(hitColliders.gameObject);
+				}
 			}
 		}
 
