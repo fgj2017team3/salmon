@@ -4,6 +4,7 @@ using System.Collections;
 public class drawws : MonoBehaviour
 {
 	public int charNo = 1;
+	public string siteName = "https://drawws.kgr-lab.com";
 
 	private GameObject armr, arml;
 	private bool flag = false;
@@ -28,11 +29,9 @@ public class drawws : MonoBehaviour
 		tbody = Resources.Load<Texture2D> ("Texture" + bodyFile);
 		tarm = Resources.Load<Texture2D> ("Texture" + armFile);
 
-		Debug.Log ("Texture" + bodyFile);
-
 		if (tbody == null || tarm == null) {
-			WWW bodyWWW = new WWW ("http://fgj.igda.jp/drawws" + bodyFile + ".png");
-			WWW armWWW = new WWW ("http://fgj.igda.jp/drawws" + armFile + ".png");
+			WWW bodyWWW = new WWW (siteName + bodyFile + ".png");
+			WWW armWWW = new WWW (siteName + armFile + ".png");
 			yield return bodyWWW;
 			yield return armWWW;
 			bodyRenderer.material.mainTexture = bodyWWW.texture;
