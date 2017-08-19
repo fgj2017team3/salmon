@@ -15,6 +15,9 @@ public class ResidentsScript : MonoBehaviour {
 	/** 活力回復値 */
 	public int resilientRecoverNum = 10;
 
+	/** ヒットエフェクト */
+	[SerializeField] GameObject hitEffect;  
+
 	/** あたり済みフラグ */
 	protected bool isHit = false;
 
@@ -37,6 +40,7 @@ public class ResidentsScript : MonoBehaviour {
 				if (hitColliders.gameObject.GetComponent<Salmon>()) {
 					Salmon salmon = hitColliders.gameObject.GetComponent<Salmon>();
 					salmon.resilient += resilientRecoverNum;
+					Destroy(Instantiate(hitEffect, salmon.transform.position, salmon.transform.localRotation, salmon.gameObject.transform), 1);
 					isHit = true;
 				}
 
