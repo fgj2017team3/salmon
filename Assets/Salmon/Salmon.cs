@@ -72,38 +72,72 @@ public class Salmon : MonoBehaviour
 		if(Input.GetKey(KeyCode.UpArrow)){
 			isInput = true;
 			X = _t.position.x;
-			Y = _t.position.y+GetSpeed();
+			Y = _t.position.y + GetSpeed();
 
-			if(Stone.CheckStones(X,Y) == false){
+			if(Stone.CheckStones(X-32, Y+64) || Stone.CheckStones(X+32, Y+64)){
+				//Y--;
+			}
+			else{
 				_t.position = new Vector3(X, Y, _t.position.z);
 			}
 		}
 		if(Input.GetKey(KeyCode.DownArrow)){
 			isInput = true;
 			X = _t.position.x;
-			Y = _t.position.y-GetSpeed();
+			Y = _t.position.y - GetSpeed();
 
-			if(Stone.CheckStones(X,Y) == false){
+			if(Stone.CheckStones(X-32, Y-64) || Stone.CheckStones(X+32, Y-64)){
+				//Y++;
+			}
+			else{
 				_t.position = new Vector3(X, Y, _t.position.z);
 			}
 		}
 		if(Input.GetKey(KeyCode.LeftArrow)){
 			isInput = true;
-			X = _t.position.x-GetSpeed();
+			X = _t.position.x - GetSpeed();
 			Y = _t.position.y;
 	
-			if(Stone.CheckStones(X,Y) == false && X >= -240){
+			if(Stone.CheckStones(X-32, Y+64)
+			   || Stone.CheckStones(X-32, Y+32)
+			   || Stone.CheckStones(X-32, Y   )
+			   || Stone.CheckStones(X-32, Y-32)
+			   || Stone.CheckStones(X-32, Y-64)
+			   || X < -240){
+				//X++;
+			}
+			else{
 				_t.position = new Vector3(X, Y, _t.position.z);
 			}
 		}
 		if(Input.GetKey(KeyCode.RightArrow)){
 			isInput = true;
-			X = _t.position.x+GetSpeed();
+			X = _t.position.x + GetSpeed();
 			Y = _t.position.y;
 
-			if(Stone.CheckStones(X,Y) == false && X <= 240){
+			if(Stone.CheckStones(X+32, Y+64)
+			   || Stone.CheckStones(X+32, Y+32)
+			   || Stone.CheckStones(X+32, Y   )
+			   || Stone.CheckStones(X+32, Y-32)
+			   || Stone.CheckStones(X+32, Y-64)
+			   || X > 240){
+				//X--;
+			}
+			else{
 				_t.position = new Vector3(X, Y, _t.position.z);
 			}
+		}
+		if(Input.GetKeyDown(KeyCode.Space)){
+			SoundManager.PlaySE(SoundManager.SE.ATTACK);
+			Stone.Attack(_t.position.x   , _t.position.y+72);
+			Stone.Attack(_t.position.x-40, _t.position.y+72);	
+			Stone.Attack(_t.position.x+40, _t.position.y+72);	
+			Stone.Attack(_t.position.x-40, _t.position.y+64);	
+			Stone.Attack(_t.position.x+40, _t.position.y+64);	
+			Stone.Attack(_t.position.x-40, _t.position.y+48);	
+			Stone.Attack(_t.position.x+40, _t.position.y+48);	
+			Stone.Attack(_t.position.x-40, _t.position.y+32);	
+			Stone.Attack(_t.position.x+40, _t.position.y+32);	
 		}
 
 
@@ -117,9 +151,6 @@ public class Salmon : MonoBehaviour
 
 
 		// debug //
-		if(Input.GetKeyDown(KeyCode.Space)){
-			Debug.Log(Stone.CheckStones(_t.position.x, _t.position.y));	
-		}
 		if(Input.GetKeyDown(KeyCode.KeypadEnter)){
 			resilient = MAX_RESILIENT;
 		}

@@ -34,6 +34,9 @@ public class Stone : MonoBehaviour
 	Transform transCam;		// カメラ位置 
 
 	[SerializeField]BoxCollider2D collid;				// 当たり判定 
+	[SerializeField]SpriteRenderer sprite;				// 画像 
+
+	bool isReadyRemove = false;							// 壊れ中かどうか 
 
 
 
@@ -103,8 +106,10 @@ public class Stone : MonoBehaviour
 	public static bool Attack (float x, float y)
 	{
 		foreach(Stone s in stones){
+			if(s.isReadyRemove){ continue; }
 			if(s.IsStone(x,y)){
 				s.StartCoroutine(s.Break());
+				s.isReadyRemove = true;;
 				return true;
 			}
 		}
@@ -120,9 +125,10 @@ public class Stone : MonoBehaviour
 	IEnumerator Break()
 	{
 		float time=0;
-		while(time < 2.5){
+		while(time < 2.5f){
 
-
+			float alpha = (1 - time / 2.5f);
+			sprite.color = new Color(1,1,1,alpha);
 
 			yield return null;
 			time += Time.deltaTime;

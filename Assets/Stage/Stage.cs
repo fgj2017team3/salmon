@@ -52,7 +52,7 @@ public class Stage : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	void Update ()
 	{
-		if(transCam.position.y > _t.position.y + 240){
+		if(transCam.position.y > _t.position.y){
 			for(int i=0; i<60; i++){
 				SpawnStone();
 			}
