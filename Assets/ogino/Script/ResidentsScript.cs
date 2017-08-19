@@ -16,7 +16,7 @@ public class ResidentsScript : MonoBehaviour {
 	public int resilientRecoverNum = 10;
 
 	/** あたり済みフラグ */
-	bool isHit = false;
+	protected bool isHit = false;
 
 	// Use this for initialization
 	void Start () {
