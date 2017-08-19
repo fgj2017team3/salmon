@@ -8,12 +8,18 @@ public class NewBehaviourScript : MonoBehaviour {
 	void Start () {
 		SoundManager.PlayBGM(SoundManager.BGM.TITLE);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-	public void Scene () {
+
+    // Update is called once per frame
+    void Update()
+    {
+        // kuny@ccraftsmen.jp ゲームパッドボタン対応
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Fire1"))
+        {
+            Scene();
+        }
+    }
+
+    public void Scene () {
 		SoundManager.StopBGM();
 		SceneManager.LoadScene("Main");
 	}
