@@ -22,7 +22,7 @@ public class Salmon : MonoBehaviour
 	Transform _t; 	// 高速化用Transform 
 
 	//-------- 内部パラメータ --------//
-	public int resilient{ get; private set; }	// 活力 
+	public int resilient;						// 活力 
 	float time;									// 経過時間 
 
 	//-------- UI --------//
