@@ -70,8 +70,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01d8848eb983e43bb9e0fa0761218e94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 10
+  radius: 50
   resilientRecoverNum: 10
+  hitEffect: {fileID: 0}
 --- !u!212 &212918380158873500
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -102,7 +103,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1740332019
-  m_SortingLayer: -1
+  m_SortingLayer: 2
   m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: c4bc3ff6679534acd9047b91e19ec410, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
