@@ -74,7 +74,7 @@ public class Salmon : MonoBehaviour
 		float Y=_t.position.y;
 
         // kuny@ccraftsmen.jp ゲームパッドアナログスティック対応
-		if(Input.GetKey(KeyCode.UpArrow) || (Input.GetAxis("Vertical") == 1))
+		if(Input.GetKey(KeyCode.UpArrow) || (Input.GetAxis("Vertical") >= 0.5))
         {
 			isInput = true;
 			X = _t.position.x;
@@ -87,7 +87,7 @@ public class Salmon : MonoBehaviour
 				_t.position = new Vector3(X, Y, _t.position.z);
 			}
 		}
-		if(Input.GetKey(KeyCode.DownArrow) || (Input.GetAxis("Vertical") == -1))
+		if(Input.GetKey(KeyCode.DownArrow) || (Input.GetAxis("Vertical") <= -0.5))
         {
 			isInput = true;
 			X = _t.position.x;
@@ -100,7 +100,7 @@ public class Salmon : MonoBehaviour
 				_t.position = new Vector3(X, Y, _t.position.z);
 			}
 		}
-		if(Input.GetKey(KeyCode.LeftArrow) || (Input.GetAxis("Horizontal") == -1))
+		if(Input.GetKey(KeyCode.LeftArrow) || (Input.GetAxis("Horizontal") <= -0.5))
         {
 			isInput = true;
 			X = _t.position.x - GetSpeed();
@@ -118,7 +118,7 @@ public class Salmon : MonoBehaviour
 				_t.position = new Vector3(X, Y, _t.position.z);
 			}
 		}
-		if(Input.GetKey(KeyCode.RightArrow) || (Input.GetAxis("Horizontal") == 1))
+		if(Input.GetKey(KeyCode.RightArrow) || (Input.GetAxis("Horizontal") >= 0.5))
         {
 			isInput = true;
 			X = _t.position.x + GetSpeed();
