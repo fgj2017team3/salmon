@@ -21,6 +21,8 @@ public class NewBehaviourScript : MonoBehaviour {
 
     public void Scene () {
 		SoundManager.StopBGM();
-		SceneManager.LoadScene("Main");
+		FadeManager.FadeOut(0.5f, ()=>{
+			SceneManager.LoadScene("Main");
+		});
 	}
 }

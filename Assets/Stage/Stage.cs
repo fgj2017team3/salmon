@@ -43,6 +43,8 @@ public class Stage : MonoBehaviour
 	void Start ()
 	{
 		SoundManager.PlayBGM(SoundManager.BGM.STAGE1);
+
+		FadeManager.FadeIn(0.5f, null);
 	}
 
 

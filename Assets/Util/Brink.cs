@@ -1,8 +1,8 @@
-﻿// River.cs 
+﻿// Brink.cs 
 //
 // @idev Unity2017.1.0f3 / MonoDevelop5.9.6
 // @auth FCEI.No-Va
-// @date 2017/08/19
+// @date 2017/08/20
 //
 // Copyright (C) 2017 FlyteCatEmotion Inc.
 // All Rights Reserved.
@@ -12,45 +12,25 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //----------------------------------------------------------------------------------------------------
-// 川の流れ早いところを制御  
+// コンポーネントとしてくっつけるとオブジェクトが点滅する 
 //----------------------------------------------------------------------------------------------------
-public class River : MonoBehaviour
+public class Brink : MonoBehaviour
 {
 	//--------------------------------------------------------------------------------
-	// メンバ変数  
+	// メンバ変数 
 	//--------------------------------------------------------------------------------
-	Transform _t;		// 高速化 
-	Transform transCam;	// メインカメラ取得 
-
-
+	[SerializeField]float onTime = 1.0f;	//@@ 点灯中の時間 
+	[SerializeField]float offTime = 1.0f;	//@@ 消えている時間 
+	[SerializeField]GameObject target;	//@@ 対象 
 
 	//--------------------------------------------------------------------------------
-	// コンストラクタ 
+	// メイン処理 
 	//--------------------------------------------------------------------------------
-	void Awake ()
+	IEnumerator Start ()
 	{
-		_t = this.gameObject.transform;
-	}
-
-
-
-	//--------------------------------------------------------------------------------
-	// セットアップ 
-	//--------------------------------------------------------------------------------
-	public void Setup (Transform cam, float y)
-	{
-		transCam = cam;;
-
-		_t.position = new Vector3(_t.position.x, y, _t.position.z);
-	}
-
-
-
-	//--------------------------------------------------------------------------------
-	// 更新 
-	//--------------------------------------------------------------------------------
-	void Update ()
-	{
-		
+		while(true){
+			target.SetActive(!target.activeSelf);
+			yield return new WaitForSeconds(target.activeSelf ? onTime : offTime);
+		}
 	}
 }

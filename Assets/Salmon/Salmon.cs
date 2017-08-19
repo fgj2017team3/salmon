@@ -65,6 +65,9 @@ public class Salmon : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	void Update ()
 	{
+		// フェード中は入力できない 
+		if(FadeManager.isPlaying){ return; }
+
 		// 入力 
 		bool isInput = false;
 		float X=_t.position.x;
