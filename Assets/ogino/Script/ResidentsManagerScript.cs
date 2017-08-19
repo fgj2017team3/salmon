@@ -108,16 +108,6 @@ public class ResidentsManagerScript : MonoBehaviour {
 		float randfX = Random.Range(0, RIVER_WIDTH/2);
 		float randfY = Random.Range(0, SCREEN_HEIGHT);
 
-		// 両端に寄せる処理 
-		{
-			float threshold = Random.Range(0, RIVER_WIDTH/2); 
-			if(threshold > randfX){ randfX = threshold; }
-		}
-		{
-			float threshold = Random.Range(0, RIVER_WIDTH/2); 
-			if(threshold > randfX){ randfX = threshold; }
-		}
-
 		// 左右に分ける 
 		randfX = randfX * (Random.Range(0,2)==0 ? (1):(-1));
 
