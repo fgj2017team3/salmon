@@ -9,6 +9,7 @@
 //------------------------------------------------------------------------------------------------------------------------
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 //----------------------------------------------------------------------------------------------------
@@ -188,6 +189,7 @@ public class Salmon : MonoBehaviour
 		resilient -= val;
 
 		if(resilient <= 0){
+			SceneManager.LoadScene("gameover");
 			Debug.Log("GameOver");
 		}
 	}
