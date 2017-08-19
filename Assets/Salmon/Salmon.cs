@@ -62,17 +62,40 @@ public class Salmon : MonoBehaviour
 	void Update ()
 	{
 		// 入力 
+		float X=_t.position.x;
+		float Y=_t.position.y;
+
 		if(Input.GetKey(KeyCode.UpArrow)){
-			_t.position = new Vector3(_t.position.x, _t.position.y+GetSpeed(), _t.position.z);
+			X = _t.position.x;
+			Y = _t.position.y+GetSpeed();
+
+			if(Stone.CheckStones(X,Y) == false){
+				_t.position = new Vector3(X, Y, _t.position.z);
+			}
 		}
 		if(Input.GetKey(KeyCode.DownArrow)){
-			_t.position = new Vector3(_t.position.x, _t.position.y-GetSpeed(), _t.position.z);
+			X = _t.position.x;
+			Y = _t.position.y-GetSpeed();
+
+			if(Stone.CheckStones(X,Y) == false){
+				_t.position = new Vector3(X, Y, _t.position.z);
+			}
 		}
 		if(Input.GetKey(KeyCode.LeftArrow)){
-			_t.position = new Vector3(_t.position.x-GetSpeed(), _t.position.y, _t.position.z);
+			X = _t.position.x-GetSpeed();
+			Y = _t.position.y;
+	
+			if(Stone.CheckStones(X,Y) == false && X >= -240){
+				_t.position = new Vector3(X, Y, _t.position.z);
+			}
 		}
 		if(Input.GetKey(KeyCode.RightArrow)){
-			_t.position = new Vector3(_t.position.x+GetSpeed(), _t.position.y, _t.position.z);
+			X = _t.position.x+GetSpeed();
+			Y = _t.position.y;
+
+			if(Stone.CheckStones(X,Y) == false && X <= 240){
+				_t.position = new Vector3(X, Y, _t.position.z);
+			}
 		}
 
 
@@ -126,7 +149,7 @@ public class Salmon : MonoBehaviour
 	{
 		if(resilient <= 0){ return 0; }
 
-		return Mathf.Sqrt(resilient)+1;
+		return Mathf.Sqrt(resilient)/4+0.25f;
 	}
 
 

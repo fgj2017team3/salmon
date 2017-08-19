@@ -21,28 +21,42 @@ public class Stone : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	static List<Stone> stones = new List<Stone>();		// 石リスト 
 
-	[SerializeField]BoxCollider2D collid;				// 当たり判定 
+	Transform _t;			// 高速化 
+	Transform transCam;		// カメラ位置 
 
+	[SerializeField]BoxCollider2D collid;				// 当たり判定 
 
 
 	//--------------------------------------------------------------------------------
 	// コンストラクタ 
 	//--------------------------------------------------------------------------------
-	void Awake (){ stones.Add(this); }
+	void Awake ()
+	{ 
+		stones.Add(this);
+		_t = this.gameObject.transform;
+	}
 
 	//--------------------------------------------------------------------------------
 	// デストラクタ 
 	//--------------------------------------------------------------------------------
-	void OnDestroy(){ stones.Remove(this); }
+	void OnDestroy ()
+	{
+		stones.Remove(this);
+	}
 
 
 
 	//--------------------------------------------------------------------------------
 	// 初期化 
 	//--------------------------------------------------------------------------------
-	public void Setup (float x, float y, int size)
+	public void Setup (Transform cam, float x, float y, int size)
 	{
+		// カメラ保持 
+		transCam = cam;
+
 		// パラメータを設定 
+		_t.localPosition = new Vector3(x, y, 0);
+
 
 	}
 
@@ -92,5 +106,18 @@ public class Stone : MonoBehaviour
 	void Break()
 	{
 
+	}
+
+
+
+	//--------------------------------------------------------------------------------
+	// 更新 
+	//--------------------------------------------------------------------------------
+	void Update ()
+	{
+		// 画面外に出たら消す処理 
+		if(transCam.position.y > _t.position.y + 240){
+			GameObject.Destroy(this.gameObject);
+		}
 	}
 }
