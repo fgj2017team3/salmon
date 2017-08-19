@@ -90,7 +90,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4599755090186696}
   - component: {fileID: 114883596845612298}
-  - component: {fileID: 50335687750646740}
   - component: {fileID: 61794970143979652}
   m_Layer: 0
   m_Name: Residents
@@ -285,26 +284,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1076116672902786}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!50 &50335687750646740
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1821529434798726}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!61 &61794970143979652
 BoxCollider2D:
   m_ObjectHideFlags: 1
