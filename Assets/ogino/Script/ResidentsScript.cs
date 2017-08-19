@@ -17,8 +17,11 @@ public class ResidentsScript : MonoBehaviour {
 		
 	}
 
-	void OnTriggerEnter(Collider other) {
-		//Destroy(other.gameObject);
-		print("test1");
+	void OnTriggerEnter2D(Collider2D other) {
+
+		if (other.gameObject.GetComponent<Salmon>()) {
+			Salmon salmon = other.gameObject.GetComponent<Salmon>();
+			print("活力アップ");
+		}
 	}
 }
