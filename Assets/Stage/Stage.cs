@@ -43,7 +43,7 @@ public class Stage : MonoBehaviour
 	void Update ()
 	{
 		if(transCam.position.y > _t.position.y + 240){
-			for(int i=0; i<20; i++){
+			for(int i=0; i<60; i++){
 				SpawnStone();
 			}
 			_t.localPosition = new Vector3(
@@ -78,7 +78,7 @@ public class Stage : MonoBehaviour
 		// 左右に分ける 
 		randfX = randfX * (Random.Range(0,2)==0 ? (1):(-1));
 
-		stone.Setup(transCam, randfX, transCam.localPosition.y + SCREEN_HEIGHT + randfY, 0);
+		stone.Setup(transCam, randfX, transCam.localPosition.y + SCREEN_HEIGHT + randfY, Stone.SIZE.NORMAL);
 	}
 
 	//--------------------------------------------------------------------------------

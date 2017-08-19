@@ -24,7 +24,7 @@ public class Gauge : MonoBehaviour
 	[SerializeField]SpriteRenderer gaugeSprite;	// メインゲージ 
 	float maxScale;								// 最大時のスケール 
 
-	public float val;							// ゲージが参照する値(0.0f-1.0f) 
+	[HideInInspector]public float val;			// ゲージが参照する値(0.0f-1.0f) 
 
 
 

@@ -25,7 +25,10 @@ public class Salmon : MonoBehaviour
 	public int resilient;						// 活力 
 	float time;									// 経過時間 
 
-	//-------- UI --------//
+	//-------- 表示 --------//
+	[SerializeField]SpriteRendererIndexer sprite;	// スプライト 
+
+	//-------- UI制御 --------//
 	[SerializeField]Gauge gauge;				// 活力ゲージ 
 
 
@@ -62,10 +65,12 @@ public class Salmon : MonoBehaviour
 	void Update ()
 	{
 		// 入力 
+		bool isInput = false;
 		float X=_t.position.x;
 		float Y=_t.position.y;
 
 		if(Input.GetKey(KeyCode.UpArrow)){
+			isInput = true;
 			X = _t.position.x;
 			Y = _t.position.y+GetSpeed();
 
@@ -74,6 +79,7 @@ public class Salmon : MonoBehaviour
 			}
 		}
 		if(Input.GetKey(KeyCode.DownArrow)){
+			isInput = true;
 			X = _t.position.x;
 			Y = _t.position.y-GetSpeed();
 
@@ -82,6 +88,7 @@ public class Salmon : MonoBehaviour
 			}
 		}
 		if(Input.GetKey(KeyCode.LeftArrow)){
+			isInput = true;
 			X = _t.position.x-GetSpeed();
 			Y = _t.position.y;
 	
@@ -90,6 +97,7 @@ public class Salmon : MonoBehaviour
 			}
 		}
 		if(Input.GetKey(KeyCode.RightArrow)){
+			isInput = true;
 			X = _t.position.x+GetSpeed();
 			Y = _t.position.y;
 
@@ -119,7 +127,20 @@ public class Salmon : MonoBehaviour
 
 
 
-		// 表示の更新 
+		// しゃけの表示切り替え 
+		{
+			if(isInput){
+				sprite.index = ((int)(time*15) % 2 == 0 ? 2 : 1);
+			}
+			else{
+				sprite.index = 0;
+				sprite.isFlipX = (int)(time*5) % 2 == 0;
+			}
+		}
+
+
+
+		// UI表示の更新 
 		gauge.val = (float)resilient / 100;
 
 		// 時間経過を取得 

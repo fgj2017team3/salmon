@@ -17,6 +17,15 @@ using UnityEngine;
 public class Stone : MonoBehaviour
 {
 	//--------------------------------------------------------------------------------
+	// サイズの種類  
+	//--------------------------------------------------------------------------------
+	public enum SIZE{
+		NORMAL,
+		SMALL,
+		LARGE,
+	}
+
+	//--------------------------------------------------------------------------------
 	// メンバ変数  
 	//--------------------------------------------------------------------------------
 	static List<Stone> stones = new List<Stone>();		// 石リスト 
@@ -25,6 +34,7 @@ public class Stone : MonoBehaviour
 	Transform transCam;		// カメラ位置 
 
 	[SerializeField]BoxCollider2D collid;				// 当たり判定 
+
 
 
 	//--------------------------------------------------------------------------------
@@ -49,7 +59,7 @@ public class Stone : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	// 初期化 
 	//--------------------------------------------------------------------------------
-	public void Setup (Transform cam, float x, float y, int size)
+	public void Setup (Transform cam, float x, float y, SIZE size)
 	{
 		// カメラ保持 
 		transCam = cam;
@@ -57,6 +67,7 @@ public class Stone : MonoBehaviour
 		// パラメータを設定 
 		_t.localPosition = new Vector3(x, y, 0);
 
+		// サイズの種類を選択 
 
 	}
 
@@ -89,23 +100,35 @@ public class Stone : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	// 指定したポジションの石を飛ばす 
 	//--------------------------------------------------------------------------------
-	public static void Attack (float x, float y)
+	public static bool Attack (float x, float y)
 	{
 		foreach(Stone s in stones){
 			if(s.IsStone(x,y)){
-				s.Break();
+				s.StartCoroutine(s.Break());
+				return true;
 			}
 		}
+
+		return false;
 	}
 
 
 
 	//--------------------------------------------------------------------------------
-	// 石飛び 
+	// 石飛び⇒消滅 
 	//--------------------------------------------------------------------------------
-	void Break()
+	IEnumerator Break()
 	{
+		float time=0;
+		while(time < 2.5){
 
+
+
+			yield return null;
+			time += Time.deltaTime;
+		}
+
+		GameObject.Destroy(this.gameObject);
 	}
 
 
@@ -116,7 +139,7 @@ public class Stone : MonoBehaviour
 	void Update ()
 	{
 		// 画面外に出たら消す処理 
-		if(transCam.position.y > _t.position.y + 240){
+		if(transCam.position.y > _t.position.y + 240 + 32){
 			GameObject.Destroy(this.gameObject);
 		}
 	}

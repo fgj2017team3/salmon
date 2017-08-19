@@ -20,8 +20,12 @@ public class SoundManager : MonoBehaviour
 	// 効果音  
 	//--------------------------------------------------------------------------------
 	public enum SE{
-		OK,
+		ATTACK,
 		CANCEL,
+		DAMAGE,
+		NOISE,
+		PUSH,
+		RECOVERY,
 	}
 
 	//--------------------------------------------------------------------------------
@@ -37,7 +41,7 @@ public class SoundManager : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	static SoundManager instance;			// シングルトンインスタンス
 
-	[SerializeField]AudioSource[] seList;	// 効果音のリスト  
+	[SerializeField]AudioSource[] seList;	// 効果音のリスト 
 	[SerializeField]AudioSource[] bgmList;	// BGM1のリスト 
 
 
@@ -64,7 +68,7 @@ public class SoundManager : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	public static void PlaySE (SE se)
 	{
-
+		instance.seList[(int)se].Play();
 	}
 
 
