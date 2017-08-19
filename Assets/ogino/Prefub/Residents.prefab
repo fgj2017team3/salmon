@@ -1541,6 +1541,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf1eabebf813944c296f3d035d951561, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 30
+  radius: 50
   resilientRecoverNum: 10
   hitEffect: {fileID: 100000, guid: 61993c433dec34ccfbc2789a30a43254, type: 2}
