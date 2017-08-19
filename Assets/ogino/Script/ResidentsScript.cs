@@ -39,7 +39,9 @@ public class ResidentsScript : MonoBehaviour {
 				// サーモンのスクリプトを持っているか？
 				if (hitColliders.gameObject.GetComponent<Salmon>()) {
 					Salmon salmon = hitColliders.gameObject.GetComponent<Salmon>();
+
 					salmon.resilient += resilientRecoverNum;
+					if (salmon.resilient > 100) salmon.resilient = 100;
 					Destroy(Instantiate(hitEffect, salmon.transform.position, salmon.transform.localRotation, salmon.gameObject.transform), 1);
 					isHit = true;
 				}
