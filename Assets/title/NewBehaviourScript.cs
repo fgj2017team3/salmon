@@ -6,7 +6,7 @@ public class NewBehaviourScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+		SoundManager.PlayBGM(SoundManager.BGM.TITLE);
 	}
 	
 	// Update is called once per frame
@@ -14,6 +14,7 @@ public class NewBehaviourScript : MonoBehaviour {
 		
 	}
 	public void Scene () {
+		SoundManager.StopBGM();
 		SceneManager.LoadScene("Main");
 	}
 }
