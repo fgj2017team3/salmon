@@ -32,8 +32,12 @@ public class SoundManager : MonoBehaviour
 	// BGM 
 	//--------------------------------------------------------------------------------
 	public enum BGM{
+		ENDING,
+		GAMEOVER,
+		STAGE1,
+		STAGE2,
+		STAGE3,
 		TITLE,
-		MAIN,
 	}
 
 	//--------------------------------------------------------------------------------
@@ -76,9 +80,10 @@ public class SoundManager : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	// BGM再生 
 	//--------------------------------------------------------------------------------
-	public static void PlayBGM (BGM bgm)
+	public static void PlayBGM (BGM bgm, bool isStop=false)
 	{
-
+		if(isStop){ StopBGM(); }
+		instance.bgmList[(int)bgm].Play();
 	}
 
 
@@ -94,6 +99,6 @@ public class SoundManager : MonoBehaviour
 	}
 	public static void StopBGM (BGM bgm)
 	{
-
+		instance.bgmList[(int)bgm].Stop();
 	}
 }
