@@ -24,7 +24,8 @@ public class SceneTitle : MonoBehaviour {
         {
             time -= 1.0f;
         }
-    }
+	}
+		
 
 
 
