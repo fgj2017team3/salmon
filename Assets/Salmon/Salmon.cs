@@ -70,7 +70,9 @@ public class Salmon : MonoBehaviour
 		float X=_t.position.x;
 		float Y=_t.position.y;
 
-		if(Input.GetKey(KeyCode.UpArrow)){
+        // kuny@ccraftsmen.jp ゲームパッドアナログスティック対応
+		if(Input.GetKey(KeyCode.UpArrow) || (Input.GetAxis("Vertical") == 1))
+        {
 			isInput = true;
 			X = _t.position.x;
 			Y = _t.position.y + GetSpeed();
@@ -82,7 +84,8 @@ public class Salmon : MonoBehaviour
 				_t.position = new Vector3(X, Y, _t.position.z);
 			}
 		}
-		if(Input.GetKey(KeyCode.DownArrow)){
+		if(Input.GetKey(KeyCode.DownArrow) || (Input.GetAxis("Vertical") == -1))
+        {
 			isInput = true;
 			X = _t.position.x;
 			Y = _t.position.y - GetSpeed();
@@ -94,7 +97,8 @@ public class Salmon : MonoBehaviour
 				_t.position = new Vector3(X, Y, _t.position.z);
 			}
 		}
-		if(Input.GetKey(KeyCode.LeftArrow)){
+		if(Input.GetKey(KeyCode.LeftArrow) || (Input.GetAxis("Horizontal") == -1))
+        {
 			isInput = true;
 			X = _t.position.x - GetSpeed();
 			Y = _t.position.y;
@@ -111,7 +115,8 @@ public class Salmon : MonoBehaviour
 				_t.position = new Vector3(X, Y, _t.position.z);
 			}
 		}
-		if(Input.GetKey(KeyCode.RightArrow)){
+		if(Input.GetKey(KeyCode.RightArrow) || (Input.GetAxis("Horizontal") == 1))
+        {
 			isInput = true;
 			X = _t.position.x + GetSpeed();
 			Y = _t.position.y;
@@ -128,7 +133,9 @@ public class Salmon : MonoBehaviour
 				_t.position = new Vector3(X, Y, _t.position.z);
 			}
 		}
-		if(Input.GetKeyDown(KeyCode.Space)){
+
+        // kuny@ccraftsmen.jp ゲームパッドボタン対応
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Fire1")){
 			SoundManager.PlaySE(SoundManager.SE.ATTACK);
 			Stone.Attack(_t.position.x   , _t.position.y+72);
 			Stone.Attack(_t.position.x-40, _t.position.y+72);	
