@@ -54,7 +54,7 @@ public class FadeManager : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	// 画面明るくする 
 	//--------------------------------------------------------------------------------
-	public static void FadeIn(float time, System.Action Callback)
+	public static void FadeIn(float time, System.Action Callback=null)
 	{
 		if(instance == null || isPlaying){ return; }
 		instance.StartCoroutine(instance.FadeCore(true, time, Callback));

@@ -37,6 +37,7 @@ public class ResidentsScript : MonoBehaviour {
 				if (hitColliders.gameObject.GetComponent<Salmon>()) {
 					Salmon salmon = hitColliders.gameObject.GetComponent<Salmon>();
 					salmon.resilient += resilientRecoverNum;
+					SoundManager.PlaySE(SoundManager.SE.RECOVERY);
 					isHit = true;
 				}
 

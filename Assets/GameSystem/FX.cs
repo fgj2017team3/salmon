@@ -1,8 +1,8 @@
-﻿// River.cs 
+﻿// FX.cs 
 //
 // @idev Unity2017.1.0f3 / MonoDevelop5.9.6
 // @auth FCEI.No-Va
-// @date 2017/08/19
+// @date 2017/08/20
 //
 // Copyright (C) 2017 FlyteCatEmotion Inc.
 // All Rights Reserved.
@@ -12,19 +12,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //----------------------------------------------------------------------------------------------------
-// 川の流れ早いところを制御  
+// エフェクト管理  
 //----------------------------------------------------------------------------------------------------
-public class River : MonoBehaviour
+public class FX : MonoBehaviour
 {
 	//--------------------------------------------------------------------------------
-	// メンバ変数  
+	// メンバ変数 
 	//--------------------------------------------------------------------------------
 	Transform _t;		// 高速化 
-	Transform transCam;	// メインカメラ取得 
-
-	[SerializeField]FX prefLightFX;		//@@ 川のキラキラしたエフェクト 
-
-
+	Transform transCam;	// カメラの位置を保持しておく 
+	float     lifeTime;	// 表示されている時間(0は無限) 
 
 	//--------------------------------------------------------------------------------
 	// コンストラクタ 
@@ -34,42 +31,31 @@ public class River : MonoBehaviour
 		_t = this.gameObject.transform;
 	}
 
-
-
 	//--------------------------------------------------------------------------------
 	// セットアップ 
 	//--------------------------------------------------------------------------------
-	public void Setup (Transform cam, float y)
+	public void Setup (Transform transCam, float x, float y, float lifeTime=0)
 	{
-		transCam = cam;;
+		this.transCam = transCam;
+		this.lifeTime = lifeTime;
 
-		_t.position = new Vector3(_t.position.x, y, _t.position.z);
+		_t.position = new Vector3(x, y, 0);
 	}
-
-
 
 	//--------------------------------------------------------------------------------
 	// 更新 
 	//--------------------------------------------------------------------------------
 	void Update ()
 	{
-		if(transCam.position.y > _t.position.y+240+32){
-			_t.position = new Vector3(0, _t.position.y+480+64, 0);
-			int num = Random.Range(-5, 3);	// 0～2つ作る(負数を含めることで0個になる確率を増やしている)
-			for(int i=0; i<num; i++){
-				ShowFx();
+		if(lifeTime > 0){
+			lifeTime -= Time.deltaTime;
+			if(lifeTime <= 0){
+				GameObject.Destroy(this.gameObject);
 			}
 		}
-	}
 
-
-
-	//--------------------------------------------------------------------------------
-	// キラキラエフェクトの生成(左右の位置はランダム) 
-	//--------------------------------------------------------------------------------
-	void ShowFx ()
-	{
-		FX light = Instantiate<FX>(prefLightFX);
-		light.Setup(transCam, Random.Range(-200, 200), _t.position.y);
+		if(transCam.position.y > _t.position.y+240+32){
+			GameObject.Destroy(this.gameObject);
+		}
 	}
 }

@@ -140,15 +140,15 @@ public class Salmon : MonoBehaviour
         // kuny@ccraftsmen.jp ゲームパッドボタン対応
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Fire1")){
 			SoundManager.PlaySE(SoundManager.SE.ATTACK);
-			Stone.Attack(_t.position.x   , _t.position.y+72);
-			Stone.Attack(_t.position.x-40, _t.position.y+72);	
-			Stone.Attack(_t.position.x+40, _t.position.y+72);	
-			Stone.Attack(_t.position.x-40, _t.position.y+64);	
-			Stone.Attack(_t.position.x+40, _t.position.y+64);	
-			Stone.Attack(_t.position.x-40, _t.position.y+48);	
-			Stone.Attack(_t.position.x+40, _t.position.y+48);	
-			Stone.Attack(_t.position.x-40, _t.position.y+32);	
-			Stone.Attack(_t.position.x+40, _t.position.y+32);	
+			Stone.Attack(_t.position.x   , _t.position.y+72, true , true);
+			Stone.Attack(_t.position.x-40, _t.position.y+72, false, true);	
+			Stone.Attack(_t.position.x+40, _t.position.y+72, true , true);	
+			Stone.Attack(_t.position.x-40, _t.position.y+64, false, true);	
+			Stone.Attack(_t.position.x+40, _t.position.y+64, true , true);	
+			Stone.Attack(_t.position.x-40, _t.position.y+48, false, true);	
+			Stone.Attack(_t.position.x+40, _t.position.y+48, true , true);	
+			Stone.Attack(_t.position.x-40, _t.position.y+32, false, true);	
+			Stone.Attack(_t.position.x+40, _t.position.y+32, true , true);	
 		}
 
 
@@ -199,6 +199,8 @@ public class Salmon : MonoBehaviour
 		resilient -= val;
 
 		if(resilient <= 0){
+			SoundManager.PlaySE(SoundManager.SE.DAMAGE);
+			SoundManager.StopBGM();
 			SceneManager.LoadScene("gameover");
 			Debug.Log("GameOver");
 		}

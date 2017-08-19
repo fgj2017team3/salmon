@@ -4,8 +4,16 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class NewBehaviourScript : MonoBehaviour {
 
+	static bool once = true;	// 一度だけ実行 
+
 	// Use this for initialization
 	void Start () {
+		if(once){
+			once = false;
+		}
+		else{
+			FadeManager.FadeIn(0.5f);
+		}
 		SoundManager.PlayBGM(SoundManager.BGM.TITLE);
 	}
 
@@ -20,6 +28,7 @@ public class NewBehaviourScript : MonoBehaviour {
     }
 
     public void Scene () {
+		SoundManager.PlaySE(SoundManager.SE.PUSH);
 		SoundManager.StopBGM();
 		FadeManager.FadeOut(0.5f, ()=>{
 			SceneManager.LoadScene("Main");

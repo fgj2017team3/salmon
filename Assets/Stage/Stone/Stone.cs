@@ -102,13 +102,15 @@ public class Stone : MonoBehaviour
 
 	//--------------------------------------------------------------------------------
 	// 指定したポジションの石を飛ばす 
+	// isRight は自分が左にいる場合(右に飛ぶ) を意味している 
 	//--------------------------------------------------------------------------------
-	public static bool Attack (float x, float y)
+	public static bool Attack (float x, float y, bool isRght, bool isUp)
 	{
 		foreach(Stone s in stones){
 			if(s.isReadyRemove){ continue; }
 			if(s.IsStone(x,y)){
-				s.StartCoroutine(s.Break());
+				FollowCamera.Shake();
+				s.StartCoroutine(s.Break(isRght, isUp));
 				s.isReadyRemove = true;;
 				return true;
 			}
@@ -120,15 +122,28 @@ public class Stone : MonoBehaviour
 
 
 	//--------------------------------------------------------------------------------
-	// 石飛び⇒消滅 
+	// 石を飛ばす 
 	//--------------------------------------------------------------------------------
-	IEnumerator Break()
+	IEnumerator Break(bool isRight, bool isUp)
 	{
 		float time=0;
+		float dirX = Random.Range(0, 320);
+		float rotSpeed = Random.Range(15, 45) * (Random.Range(0,2)==0 ? -1:1);
 		while(time < 2.5f){
 
+			// 消える 
 			float alpha = (1 - time / 2.5f);
 			sprite.color = new Color(1,1,1,alpha);
+
+			// 回る 
+			_t.Rotate(0, 0, rotSpeed);
+
+			// 飛ぶ 
+			_t.position = new Vector3(
+				_t.position.x + dirX/10 * (isRight ? 1:-1),
+				_t.position.y + 4 * (isUp ? 1:-1),
+				0
+			);
 
 			yield return null;
 			time += Time.deltaTime;
