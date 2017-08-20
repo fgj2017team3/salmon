@@ -22,6 +22,8 @@ public class River : MonoBehaviour
 	Transform _t;		// 高速化 
 	Transform transCam;	// メインカメラ取得 
 
+	[SerializeField]FX prefLightFX;		//@@ 川のキラキラしたエフェクト 
+
 
 
 	//--------------------------------------------------------------------------------
@@ -53,6 +55,21 @@ public class River : MonoBehaviour
 	{
 		if(transCam.position.y > _t.position.y+240+32){
 			_t.position = new Vector3(0, _t.position.y+480+64, 0);
+			int num = Random.Range(-5, 3);	// 0～2つ作る(負数を含めることで0個になる確率を増やしている)
+			for(int i=0; i<num; i++){
+				ShowFx();
+			}
 		}
+	}
+
+
+
+	//--------------------------------------------------------------------------------
+	// キラキラエフェクトの生成(左右の位置はランダム) 
+	//--------------------------------------------------------------------------------
+	void ShowFx ()
+	{
+		FX light = Instantiate<FX>(prefLightFX);
+		light.Setup(transCam, Random.Range(-200, 200), _t.position.y);
 	}
 }

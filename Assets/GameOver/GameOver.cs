@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class SceneTitle : MonoBehaviour {
+public class GameOver : MonoBehaviour {
 
     // kuny@ccraftsmen.jp タイトルまでの自動遷移タイマー（5秒）
     float time = 300.0f; 
 
     // Use this for initialization
     void Start () {
-		
+		SoundManager.PlayBGM(SoundManager.BGM.GAMEOVER);
 	}
 	
 	// Update is called once per frame
@@ -24,12 +24,15 @@ public class SceneTitle : MonoBehaviour {
         {
             time -= 1.0f;
         }
-    }
+	}
+		
 
 
 
     public void Scene () {
-		SceneManager.LoadScene ("title");
-
+		SoundManager.StopBGM();
+		FadeManager.FadeOut(0.5f, ()=>{
+			SceneManager.LoadScene("title");
+		});
     }
 }

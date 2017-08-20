@@ -44,7 +44,7 @@ public class Stage : MonoBehaviour
 	{
 		SoundManager.PlayBGM(SoundManager.BGM.STAGE1);
 
-		FadeManager.FadeIn(0.5f, null);
+		FadeManager.FadeIn(0.5f);
 
 		// 背景設置 
 		for(int i=0; i<9; i++){
