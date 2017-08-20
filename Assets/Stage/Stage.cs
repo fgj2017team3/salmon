@@ -42,7 +42,9 @@ public class Stage : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	void Start ()
 	{
-		SoundManager.PlayBGM(SoundManager.BGM.STAGE1);
+		// BGMはランダム 
+		SoundManager.BGM bgmID = (SoundManager.BGM)Random.Range((int)SoundManager.BGM.STAGE1, (int)SoundManager.BGM.STAGE3+1); 
+		SoundManager.PlayBGM(bgmID);
 
 		FadeManager.FadeIn(0.5f);
 
