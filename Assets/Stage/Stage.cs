@@ -42,7 +42,9 @@ public class Stage : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	void Start ()
 	{
-		SoundManager.PlayBGM(SoundManager.BGM.STAGE1);
+		// BGMはランダム 
+		SoundManager.BGM bgmID = (SoundManager.BGM)Random.Range((int)SoundManager.BGM.STAGE1, (int)SoundManager.BGM.STAGE3+1); 
+		SoundManager.PlayBGM(bgmID);
 
 		FadeManager.FadeIn(0.5f);
 
@@ -96,7 +98,9 @@ public class Stage : MonoBehaviour
 		// 左右に分ける 
 		randfX = randfX * (Random.Range(0,2)==0 ? (1):(-1));
 
-		stone.Setup(transCam, randfX, transCam.localPosition.y + SCREEN_HEIGHT + randfY, Stone.SIZE.NORMAL);
+		// 石の出意をランダムに 
+		Stone.SIZE size = (Stone.SIZE)Random.Range(0,3);
+		stone.Setup(transCam, randfX, transCam.localPosition.y + SCREEN_HEIGHT + randfY, size);
 	}
 
 	//--------------------------------------------------------------------------------
@@ -112,6 +116,7 @@ public class Stage : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	// 定数 
 	//--------------------------------------------------------------------------------
-	const float SCREEN_HEIGHT = 480;
-	const float RIVER_WIDTH   = 480;
+	public const float SCREEN_HEIGHT = 480;	// スクリーンの縦幅 
+	public const float RIVER_WIDTH   = 480;	// 川の横幅 
+	public const int   DISTANCE      = 999;	// ゴールまでの距離 
 }

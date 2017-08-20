@@ -30,7 +30,8 @@ public class Salmon : MonoBehaviour
 	[SerializeField]SpriteRendererIndexer sprite;	// スプライト 
 
 	//-------- UI制御 --------//
-	[SerializeField]Gauge gauge;				// 活力ゲージ 
+	[SerializeField]Gauge    gauge;				// 活力ゲージ 
+	[SerializeField]Distance distance;			// ゴールまでの距離 
 
 
 
@@ -80,7 +81,7 @@ public class Salmon : MonoBehaviour
 			X = _t.position.x;
 			Y = _t.position.y + GetSpeed();
 
-			if(Stone.CheckStones(X-32, Y+64) || Stone.CheckStones(X+32, Y+64)){
+			if(Stone.CheckStones(X-32, Y+64) || Stone.CheckStones(X, Y+64) || Stone.CheckStones(X+32, Y+64)){
 				//Y--;
 			}
 			else{
@@ -93,7 +94,7 @@ public class Salmon : MonoBehaviour
 			X = _t.position.x;
 			Y = _t.position.y - GetSpeed();
 
-			if(Stone.CheckStones(X-32, Y-64) || Stone.CheckStones(X+32, Y-64)){
+			if(Stone.CheckStones(X-32, Y-64) || Stone.CheckStones(X, Y-64) || Stone.CheckStones(X+32, Y-64)){
 				//Y++;
 			}
 			else{
@@ -111,7 +112,7 @@ public class Salmon : MonoBehaviour
 			   || Stone.CheckStones(X-32, Y   )
 			   || Stone.CheckStones(X-32, Y-32)
 			   || Stone.CheckStones(X-32, Y-64)
-			   || X < -240){
+			   || X < -200){
 				//X++;
 			}
 			else{
@@ -129,7 +130,7 @@ public class Salmon : MonoBehaviour
 			   || Stone.CheckStones(X+32, Y   )
 			   || Stone.CheckStones(X+32, Y-32)
 			   || Stone.CheckStones(X+32, Y-64)
-			   || X > 240){
+			   || X > 200){
 				//X--;
 			}
 			else{
@@ -155,19 +156,14 @@ public class Salmon : MonoBehaviour
 
 		// 減衰 
 		if(time > 0.5f){
-			Decline(1);
+			Decline((int)_t.position.y/3000+1);
 			time -= 0.5f;
 		}
 
-
-
-		// debug //
-		if(Input.GetKeyDown(KeyCode.KeypadEnter)){
-			resilient = MAX_RESILIENT;
+		// ゴール判定 
+		if(Stage.DISTANCE - (int)_t.position.y/10 < 0){
+			Debug.Log("CLEAR");
 		}
-		// debug //
-
-
 
 		// しゃけの表示切り替え 
 		{
@@ -184,6 +180,7 @@ public class Salmon : MonoBehaviour
 
 		// UI表示の更新 
 		gauge.val = (float)resilient / 100;
+		distance.num = Stage.DISTANCE - (int)_t.position.y/10;
 
 		// 時間経過を取得 
 		time += Time.deltaTime;
