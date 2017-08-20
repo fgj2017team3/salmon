@@ -45,25 +45,27 @@ public class FadeManager : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	// 画面暗転開始 
 	//--------------------------------------------------------------------------------
-	public static void FadeOut(float time, System.Action Callback)
+	public static void FadeOut(float time, System.Action Callback=null, Color? nColor=null)
 	{
 		if(instance == null || isPlaying){ return; }
-		instance.StartCoroutine(instance.FadeCore(false, time, Callback));
+		Color color = nColor ?? Color.black;
+		instance.StartCoroutine(instance.FadeCore(false, time, Callback, color));
 	}
 
 	//--------------------------------------------------------------------------------
 	// 画面明るくする 
 	//--------------------------------------------------------------------------------
-	public static void FadeIn(float time, System.Action Callback=null)
+	public static void FadeIn(float time, System.Action Callback=null, Color? nColor=null)
 	{
 		if(instance == null || isPlaying){ return; }
-		instance.StartCoroutine(instance.FadeCore(true, time, Callback));
+		Color color = nColor ?? Color.black;
+		instance.StartCoroutine(instance.FadeCore(true, time, Callback, color));
 	}
 
 	//--------------------------------------------------------------------------------
 	// フェード共通処理  
 	//--------------------------------------------------------------------------------
-	IEnumerator FadeCore(bool isFadeIn, float max_time, System.Action Callback)
+	IEnumerator FadeCore(bool isFadeIn, float max_time, System.Action Callback, Color color)
 	{
 		// 多重フェードのロック 
 		isPlaying = true;
@@ -80,7 +82,7 @@ public class FadeManager : MonoBehaviour
 				alpha = timer / max_time;
 			}
 
-			Sprite.color = new Color(0, 0, 0, alpha);
+			Sprite.color = new Color(color.r, color.g, color.b, alpha);
 
 			yield return null;
 			timer += Time.deltaTime;
@@ -88,10 +90,10 @@ public class FadeManager : MonoBehaviour
 			
 		// 最後の帳尻合わせ 
 		if(isFadeIn){
-			Sprite.color = Color.clear;
+			Sprite.color = new Color(color.r, color.g, color.b, 0);
 		}
 		else{
-			Sprite.color = Color.black;
+			Sprite.color = new Color(color.r, color.g, color.b, 1);
 		}
 
 		// 終了コールバックの実行 
