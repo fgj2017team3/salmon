@@ -33,7 +33,7 @@ public class ResidentsScript : MonoBehaviour {
 
 		if (!isHit) {
 			// 何かコリジョンが当たっていないか、球状にレイを飛ばして判定
-			Collider2D hitColliders = Physics2D.OverlapCircle(transform.localPosition, radius);
+			Collider2D hitColliders = Physics2D.OverlapCircle(transform.position, radius);
 			// 何かコリジョンをもつコンポーネントがヒットした場合
 			if (hitColliders) {
 				// サーモンのスクリプトを持っているか？
@@ -50,9 +50,8 @@ public class ResidentsScript : MonoBehaviour {
 					Destroy(hitColliders.gameObject);
 				}
 			}
-		}
-
-		autoRemove();
+		}else 
+			gameObject.transform.Rotate(0, 10, 0);
 	}
 
 	public void autoRemove() {
