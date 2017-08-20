@@ -156,7 +156,7 @@ public class Salmon : MonoBehaviour
 
 		// 減衰 
 		if(time > 0.5f){
-			Decline((int)_t.position.y/2000+1);
+			Decline((int)_t.position.y/3000+1);
 			time -= 0.5f;
 		}
 
