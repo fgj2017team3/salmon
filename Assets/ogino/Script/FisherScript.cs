@@ -20,12 +20,43 @@ public class FisherScript : ResidentsScript {
 				// サーモンのスクリプトを持っているか？
 				if (hitColliders.gameObject.GetComponent<Salmon>()) {
 					Salmon salmon = hitColliders.gameObject.GetComponent<Salmon>();
-					salmon.resilient = 0;
+					Destroy(salmon.gameObject.GetComponent<BoxCollider2D>());
+					Destroy(Instantiate(hitEffect, transform.localPosition, transform.localRotation, gameObject.transform), 1);
 					isHit = true;
+					StartCoroutine(Break(salmon, true, true));
+
 				}
 			}
 		}
 
 		autoRemove();
+	}
+
+	//--------------------------------------------------------------------------------
+	// 石を飛ばす 
+	//--------------------------------------------------------------------------------
+	IEnumerator Break(Salmon salmon, bool isRight, bool isUp)
+	{
+		float time=0;
+		float rotSpeed = Random.Range(15, 45) * (Random.Range(0,2)==0 ? -1:1);
+		while(time < 0.5f){
+
+			Transform t = salmon.transform;
+			// 回る 
+			t.Rotate(0, 0, rotSpeed);
+
+			// 飛ぶ 
+			t.position = new Vector3(
+				t.position.x,
+				t.position.y + 14 * (isUp ? 1:-1),
+				0
+			);
+			t.localScale = new Vector3(t.localScale.x + 0.25f, t.localScale.y + 0.25f, t.localScale.z + 0.25f);
+
+			yield return null;
+			time += Time.deltaTime;
+		}
+
+		salmon.resilient = 0;
 	}
 }

@@ -16,7 +16,7 @@ public class ResidentsScript : MonoBehaviour {
 	public int resilientRecoverNum = 10;
 
 	/** ヒットエフェクト */
-	[SerializeField] GameObject hitEffect;  
+	[SerializeField]protected GameObject hitEffect;  
 
 	/** あたり済みフラグ */
 	protected bool isHit = false;
@@ -41,9 +41,15 @@ public class ResidentsScript : MonoBehaviour {
 					Salmon salmon = hitColliders.gameObject.GetComponent<Salmon>();
 					SoundManager.PlaySE(SoundManager.SE.RECOVERY);
 					salmon.resilient += resilientRecoverNum;
-					if (salmon.resilient > 100) salmon.resilient = 100;
-					Destroy(Instantiate(hitEffect, salmon.transform.position, salmon.transform.localRotation, salmon.gameObject.transform), 1);
-					isHit = true;
+					if (salmon.resilient < 1) {
+						isHit = true;
+						return;
+					} else {
+						if (salmon.resilient > 100) salmon.resilient = 100;
+						Destroy(Instantiate(hitEffect, salmon.transform.position, salmon.transform.localRotation, salmon.gameObject.transform), 1);
+						isHit = true;
+					}
+
 				}
 
 				if (hitColliders.gameObject.GetComponent<Stone>()) {
