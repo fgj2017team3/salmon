@@ -56,6 +56,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4818017227921344}
   - component: {fileID: 114349507223157820}
+  - component: {fileID: 114387028334778096}
   m_Layer: 0
   m_Name: drawws (2)
   m_TagString: Untagged
@@ -198,6 +199,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4046006398150300}
   - component: {fileID: 114245198919008994}
+  - component: {fileID: 114377219965247586}
   m_Layer: 0
   m_Name: drawws (4)
   m_TagString: Untagged
@@ -214,6 +216,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4569726610738872}
   - component: {fileID: 114808247747194734}
+  - component: {fileID: 114187547099736468}
   m_Layer: 0
   m_Name: drawws (3)
   m_TagString: Untagged
@@ -266,6 +269,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4179605625260832}
   - component: {fileID: 114774720689026562}
+  - component: {fileID: 114410058912334644}
   m_Layer: 0
   m_Name: drawws
   m_TagString: Untagged
@@ -282,6 +286,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4759641307288848}
   - component: {fileID: 114035066364317070}
+  - component: {fileID: 114353739018098976}
   m_Layer: 0
   m_Name: drawws (1)
   m_TagString: Untagged
@@ -315,7 +320,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4599755090186696}
-  - component: {fileID: 114883596845612298}
+  - component: {fileID: 114650058784890998}
   m_Layer: 0
   m_Name: Residents
   m_TagString: Residents
@@ -1478,6 +1483,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   charNo: 4
   siteName: https://drawws.kgr-lab.com
+--- !u!114 &114187547099736468
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1431376427257420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf1eabebf813944c296f3d035d951561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 50
+  resilientRecoverNum: 10
+  hitEffect: {fileID: 100000, guid: 61993c433dec34ccfbc2789a30a43254, type: 2}
 --- !u!114 &114245198919008994
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1504,6 +1523,76 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   charNo: 2
   siteName: https://drawws.kgr-lab.com
+--- !u!114 &114353739018098976
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1787097246282960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf1eabebf813944c296f3d035d951561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 50
+  resilientRecoverNum: 10
+  hitEffect: {fileID: 100000, guid: 61993c433dec34ccfbc2789a30a43254, type: 2}
+--- !u!114 &114377219965247586
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1414714725973002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf1eabebf813944c296f3d035d951561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 50
+  resilientRecoverNum: 10
+  hitEffect: {fileID: 100000, guid: 61993c433dec34ccfbc2789a30a43254, type: 2}
+--- !u!114 &114387028334778096
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1099538138344480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf1eabebf813944c296f3d035d951561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 50
+  resilientRecoverNum: 10
+  hitEffect: {fileID: 100000, guid: 61993c433dec34ccfbc2789a30a43254, type: 2}
+--- !u!114 &114410058912334644
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1715546474531406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf1eabebf813944c296f3d035d951561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 50
+  resilientRecoverNum: 10
+  hitEffect: {fileID: 100000, guid: 61993c433dec34ccfbc2789a30a43254, type: 2}
+--- !u!114 &114650058784890998
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1821529434798726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7944d9bb44d994c4abd4bf53e87a77c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 10
+  resilientRecoverNum: 10
+  hitEffect: {fileID: 0}
 --- !u!114 &114774720689026562
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1530,17 +1619,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   charNo: 3
   siteName: https://drawws.kgr-lab.com
---- !u!114 &114883596845612298
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1821529434798726}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf1eabebf813944c296f3d035d951561, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  radius: 50
-  resilientRecoverNum: 10
-  hitEffect: {fileID: 100000, guid: 61993c433dec34ccfbc2789a30a43254, type: 2}
