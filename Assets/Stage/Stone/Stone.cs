@@ -33,8 +33,9 @@ public class Stone : MonoBehaviour
 	Transform _t;			// 高速化 
 	Transform transCam;		// カメラ位置 
 
-	[SerializeField]BoxCollider2D collid;				// 当たり判定 
+	[SerializeField]BoxCollider2D  collid;				// 当たり判定 
 	[SerializeField]SpriteRenderer sprite;				// 画像 
+	SpriteRendererIndexer indexer;						// 画像のインデクサ 
 
 	bool isReadyRemove = false;							// 壊れ中かどうか 
 
@@ -46,7 +47,9 @@ public class Stone : MonoBehaviour
 	void Awake ()
 	{ 
 		stones.Add(this);
+
 		_t = this.gameObject.transform;
+		indexer = sprite.gameObject.GetComponent<SpriteRendererIndexer>();
 	}
 
 	//--------------------------------------------------------------------------------
@@ -71,7 +74,23 @@ public class Stone : MonoBehaviour
 		_t.localPosition = new Vector3(x, y, 0);
 
 		// サイズの種類を選択 
-
+		indexer.index = (int)size;
+		switch(size){
+			case SIZE.NORMAL:
+			{
+				break;
+			}
+			case SIZE.LARGE:
+			{
+				_t.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+				break;
+			}
+			case SIZE.SMALL:
+			{
+				_t.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+				break;
+			}
+		}
 	}
 
 
