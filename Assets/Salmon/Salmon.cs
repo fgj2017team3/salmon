@@ -161,9 +161,9 @@ public class Salmon : MonoBehaviour
 		}
 
 		// ゴール判定 
-		if(Stage.DISTANCE - (int)_t.position.y/10 < 0){
-			Debug.Log("CLEAR");
-		}
+		//if(Stage.DISTANCE - (int)_t.position.y/10 < 0){
+		//	Debug.Log("CLEAR");
+		//}
 
 		// しゃけの表示切り替え 
 		{
@@ -176,7 +176,12 @@ public class Salmon : MonoBehaviour
 			}
 		}
 
-
+		// debug //
+		if(Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetButtonDown("Fire2")){
+			SoundManager.PlaySE(SoundManager.SE.RECOVERY);
+			resilient = MAX_RESILIENT;
+		}
+		// debug end //
 
 		// UI表示の更新 
 		gauge.val = (float)resilient / 100;

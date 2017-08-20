@@ -1,8 +1,8 @@
-﻿// FollowCamera.cs 
+﻿// Ikura.cs 
 //
 // @idev Unity2017.1.0f3 / MonoDevelop5.9.6
 // @auth FCEI.No-Va
-// @date 2017/08/19
+// @date 2017/08/20
 //
 // Copyright (C) 2017 FlyteCatEmotion Inc.
 // All Rights Reserved.
@@ -12,71 +12,63 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //----------------------------------------------------------------------------------------------------
-// カメラが対象を追いかける(Y座標のみ) 
+// いくらの制御 
 //----------------------------------------------------------------------------------------------------
-public class FollowCamera : MonoBehaviour
+public class Ikura : MonoBehaviour
 {
 	//--------------------------------------------------------------------------------
 	// メンバ変数 
 	//--------------------------------------------------------------------------------
-	static FollowCamera instance;		// シングルトンインスタンス 
+	Transform _t;
 
-	Transform _t; 						// 高速化用Transform 
+	float vx;
+	float vy;
 
-	[SerializeField]Transform target;	// 追いかける対象 
+	[SerializeField]SpriteRenderer sprite;
 
 
 
 	//--------------------------------------------------------------------------------
-	// コンストラクタ 
+	// コンストラクタ  
 	//--------------------------------------------------------------------------------
 	void Awake ()
 	{
-		// シングルトン作成 
-		if(instance == null){
-			instance = this;
-			DontDestroyOnLoad(this.gameObject);
-		}
-		else{
-			GameObject.Destroy(this.gameObject);
-		}
-
-		// Transfomr保持 
 		_t = this.gameObject.transform;
 	}
 
 
 
 	//--------------------------------------------------------------------------------
-	// 更新 
+	// セットアップ  
+	//--------------------------------------------------------------------------------
+	public void Setup (float x, float y, float vx, float vy)
+	{
+		_t.position = new Vector3(x, y, 0);
+
+		this.vx = vx;
+		this.vy = vy;
+	}
+
+
+
+	//--------------------------------------------------------------------------------
+	// 更新　 
 	//--------------------------------------------------------------------------------
 	void Update ()
 	{
-		/*if*/while(target.localPosition.y > _t.localPosition.y){
-			_t.localPosition = new Vector3(
-				_t.localPosition.x,
-				_t.localPosition.y + 1,
-				_t.localPosition.z
-			);
-		}
-	}
+		_t.position = new Vector3(
+			_t.position.x + vx,
+			_t.position.y + vy,
+			_t.position.z
+		);
 
+		vx = vx * 0.8f;
+		vy = vy * 0.8f;
 
+		sprite.color = new Color(1, 1, 1, Mathf.Min(1, Mathf.Abs(vx)));
 
-	//--------------------------------------------------------------------------------
-	// 画面揺らす 
-	//--------------------------------------------------------------------------------
-	public static void Shake ()
-	{
-		instance.StartCoroutine(instance.ShakeCore());	
-	}
-	IEnumerator ShakeCore ()
-	{
-		Transform parent = _t.parent;
-		for(int i=8; i>=0; i--){
-			float val = (float)i * (i%2==0 ? -1 : 1);
-			parent.position = new Vector3(0, val, 0);
-			yield return new WaitForSeconds(0.02f);
+		if(Mathf.Abs(vx) < 0.01f){
+			GameObject.Destroy(this.gameObject);
 		}
 	}
 }

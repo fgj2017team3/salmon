@@ -5,10 +5,11 @@ using UnityEngine.SceneManagement;
 public class GameClear : MonoBehaviour {
 
     // kuny@ccraftsmen.jp タイトルまでの自動遷移タイマー（5秒）
-    float time = 300.0f;
+    float time = 600.0f;
 
     // Use this for initialization
     void Start () {
+		FadeManager.FadeIn(1.5f);
 		SoundManager.PlayBGM(SoundManager.BGM.ENDING);
 	}
 	
@@ -30,8 +31,8 @@ public class GameClear : MonoBehaviour {
 
     public void Scene () {
 		SoundManager.StopBGM();
-		FadeManager.FadeOut(0.5f, ()=>{
+		FadeManager.FadeOut(1.5f, ()=>{
 			SceneManager.LoadScene("title");
-		});
+		}, Color.white);
 	}
 }

@@ -21,9 +21,10 @@ public class Stage : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	Transform _t;
 
-	[SerializeField]Stone     prefStone;	// 石のプレハブ 
-	[SerializeField]River     prefRiver;	// 川のプレハブ(弱い順に) 
-	[SerializeField]Transform transCam;		// カメラの位置を補足しておく 
+	[SerializeField]Stone      prefStone;	// 石のプレハブ 
+	[SerializeField]River      prefRiver;	// 川のプレハブ(弱い順に) 
+	[SerializeField]Transform  transCam;	// カメラの位置を補足しておく 
+	[SerializeField]GameObject prefGoal;	// ゴール 
 
 
 
@@ -62,6 +63,20 @@ public class Stage : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	void Update ()
 	{
+		// ゴールを生成 
+		if(transCam.position.y >= 10000-64*2+128){
+			GameObject obj = Instantiate(prefGoal);
+			obj.transform.localPosition = new Vector3(0, 10000+64*4, 0);
+			obj.transform.localRotation = Quaternion.identity;
+			obj.transform.localScale = Vector3.one;
+			this.gameObject.SetActive(false);
+			return;
+		}
+		// この辺から何も生成しない 
+		else if(transCam.position.y >= 10000-64*8){
+			return;
+		}
+
 		if(transCam.position.y > _t.position.y){
 			for(int i=0; i<60; i++){
 				SpawnStone();

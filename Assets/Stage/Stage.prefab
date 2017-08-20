@@ -56,3 +56,4 @@ MonoBehaviour:
   prefRiver: {fileID: 114259577119817896, guid: dde7fd14f389406499ae8e94913ba7e6,
     type: 2}
   transCam: {fileID: 0}
+  prefGoal: {fileID: 1651808208364684, guid: 877a39d00c7d2e24881702df682836b2, type: 2}
