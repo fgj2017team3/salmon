@@ -108,6 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 811419b2edc78624883376b092bab1e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitEffect: {fileID: 100002, guid: a09b24f2716bb4945ab7abe24373b244, type: 2}
   collid: {fileID: 61858529367708200}
   sprite: {fileID: 212342291690468566}
 --- !u!114 &114358319558709092

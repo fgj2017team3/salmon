@@ -30,6 +30,9 @@ public class Stone : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	static List<Stone> stones = new List<Stone>();		// 石リスト 
 
+	/** ヒットエフェクト */
+	[SerializeField]GameObject hitEffect;  
+
 	Transform _t;			// 高速化 
 	Transform transCam;		// カメラ位置 
 
@@ -38,8 +41,6 @@ public class Stone : MonoBehaviour
 	SpriteRendererIndexer indexer;						// 画像のインデクサ 
 
 	bool isReadyRemove = false;							// 壊れ中かどうか 
-
-
 
 	//--------------------------------------------------------------------------------
 	// コンストラクタ 
@@ -148,6 +149,7 @@ public class Stone : MonoBehaviour
 		float time=0;
 		float dirX = Random.Range(0, 320);
 		float rotSpeed = Random.Range(15, 45) * (Random.Range(0,2)==0 ? -1:1);
+		Destroy(Instantiate(hitEffect, transform.localPosition, transform.localRotation, transform.parent), 1);
 		while(time < 2.5f){
 
 			// 消える 
