@@ -25,5 +25,7 @@ public class FisherScript : ResidentsScript {
 				}
 			}
 		}
+
+		autoRemove();
 	}
 }

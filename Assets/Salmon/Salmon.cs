@@ -9,6 +9,7 @@
 //------------------------------------------------------------------------------------------------------------------------
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 //----------------------------------------------------------------------------------------------------
@@ -25,7 +26,10 @@ public class Salmon : MonoBehaviour
 	public int resilient;						// 活力 
 	float time;									// 経過時間 
 
-	//-------- UI --------//
+	//-------- 表示 --------//
+	[SerializeField]SpriteRendererIndexer sprite;	// スプライト 
+
+	//-------- UI制御 --------//
 	[SerializeField]Gauge gauge;				// 活力ゲージ 
 
 
@@ -61,41 +65,90 @@ public class Salmon : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	void Update ()
 	{
+		// フェード中は入力できない 
+		if(FadeManager.isPlaying){ return; }
+
 		// 入力 
+		bool isInput = false;
 		float X=_t.position.x;
 		float Y=_t.position.y;
 
-		if(Input.GetKey(KeyCode.UpArrow)){
+        // kuny@ccraftsmen.jp ゲームパッドアナログスティック対応
+		if(Input.GetKey(KeyCode.UpArrow) || (Input.GetAxis("Vertical") >= 0.5))
+        {
+			isInput = true;
 			X = _t.position.x;
-			Y = _t.position.y+GetSpeed();
+			Y = _t.position.y + GetSpeed();
 
-			if(Stone.CheckStones(X,Y) == false){
+			if(Stone.CheckStones(X-32, Y+64) || Stone.CheckStones(X+32, Y+64)){
+				//Y--;
+			}
+			else{
 				_t.position = new Vector3(X, Y, _t.position.z);
 			}
 		}
-		if(Input.GetKey(KeyCode.DownArrow)){
+		if(Input.GetKey(KeyCode.DownArrow) || (Input.GetAxis("Vertical") <= -0.5))
+        {
+			isInput = true;
 			X = _t.position.x;
-			Y = _t.position.y-GetSpeed();
+			Y = _t.position.y - GetSpeed();
 
-			if(Stone.CheckStones(X,Y) == false){
+			if(Stone.CheckStones(X-32, Y-64) || Stone.CheckStones(X+32, Y-64)){
+				//Y++;
+			}
+			else{
 				_t.position = new Vector3(X, Y, _t.position.z);
 			}
 		}
-		if(Input.GetKey(KeyCode.LeftArrow)){
-			X = _t.position.x-GetSpeed();
+		if(Input.GetKey(KeyCode.LeftArrow) || (Input.GetAxis("Horizontal") <= -0.5))
+        {
+			isInput = true;
+			X = _t.position.x - GetSpeed();
 			Y = _t.position.y;
 	
-			if(Stone.CheckStones(X,Y) == false && X >= -240){
+			if(Stone.CheckStones(X-32, Y+64)
+			   || Stone.CheckStones(X-32, Y+32)
+			   || Stone.CheckStones(X-32, Y   )
+			   || Stone.CheckStones(X-32, Y-32)
+			   || Stone.CheckStones(X-32, Y-64)
+			   || X < -240){
+				//X++;
+			}
+			else{
 				_t.position = new Vector3(X, Y, _t.position.z);
 			}
 		}
-		if(Input.GetKey(KeyCode.RightArrow)){
-			X = _t.position.x+GetSpeed();
+		if(Input.GetKey(KeyCode.RightArrow) || (Input.GetAxis("Horizontal") >= 0.5))
+        {
+			isInput = true;
+			X = _t.position.x + GetSpeed();
 			Y = _t.position.y;
 
-			if(Stone.CheckStones(X,Y) == false && X <= 240){
+			if(Stone.CheckStones(X+32, Y+64)
+			   || Stone.CheckStones(X+32, Y+32)
+			   || Stone.CheckStones(X+32, Y   )
+			   || Stone.CheckStones(X+32, Y-32)
+			   || Stone.CheckStones(X+32, Y-64)
+			   || X > 240){
+				//X--;
+			}
+			else{
 				_t.position = new Vector3(X, Y, _t.position.z);
 			}
+		}
+
+        // kuny@ccraftsmen.jp ゲームパッドボタン対応
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Fire1")){
+			SoundManager.PlaySE(SoundManager.SE.ATTACK);
+			Stone.Attack(_t.position.x   , _t.position.y+72, true , true);
+			Stone.Attack(_t.position.x-40, _t.position.y+72, false, true);	
+			Stone.Attack(_t.position.x+40, _t.position.y+72, true , true);	
+			Stone.Attack(_t.position.x-40, _t.position.y+64, false, true);	
+			Stone.Attack(_t.position.x+40, _t.position.y+64, true , true);	
+			Stone.Attack(_t.position.x-40, _t.position.y+48, false, true);	
+			Stone.Attack(_t.position.x+40, _t.position.y+48, true , true);	
+			Stone.Attack(_t.position.x-40, _t.position.y+32, false, true);	
+			Stone.Attack(_t.position.x+40, _t.position.y+32, true , true);	
 		}
 
 
@@ -109,9 +162,6 @@ public class Salmon : MonoBehaviour
 
 
 		// debug //
-		if(Input.GetKeyDown(KeyCode.Space)){
-			Debug.Log(Stone.CheckStones(_t.position.x, _t.position.y));	
-		}
 		if(Input.GetKeyDown(KeyCode.KeypadEnter)){
 			resilient = MAX_RESILIENT;
 		}
@@ -119,7 +169,20 @@ public class Salmon : MonoBehaviour
 
 
 
-		// 表示の更新 
+		// しゃけの表示切り替え 
+		{
+			if(isInput){
+				sprite.index = ((int)(time*15) % 2 == 0 ? 2 : 1);
+			}
+			else{
+				sprite.index = 0;
+				sprite.isFlipX = (int)(time*5) % 2 == 0;
+			}
+		}
+
+
+
+		// UI表示の更新 
 		gauge.val = (float)resilient / 100;
 
 		// 時間経過を取得 
@@ -136,6 +199,9 @@ public class Salmon : MonoBehaviour
 		resilient -= val;
 
 		if(resilient <= 0){
+			SoundManager.PlaySE(SoundManager.SE.DAMAGE);
+			SoundManager.StopBGM();
+			SceneManager.LoadScene("gameover");
 			Debug.Log("GameOver");
 		}
 	}

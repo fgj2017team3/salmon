@@ -15,8 +15,13 @@ public class ResidentsScript : MonoBehaviour {
 	/** 活力回復値 */
 	public int resilientRecoverNum = 10;
 
+	/** ヒットエフェクト */
+	[SerializeField] GameObject hitEffect;  
+
 	/** あたり済みフラグ */
 	protected bool isHit = false;
+
+	Transform transCam;		// カメラ位置 
 
 	// Use this for initialization
 	void Start () {
@@ -34,10 +39,38 @@ public class ResidentsScript : MonoBehaviour {
 				// サーモンのスクリプトを持っているか？
 				if (hitColliders.gameObject.GetComponent<Salmon>()) {
 					Salmon salmon = hitColliders.gameObject.GetComponent<Salmon>();
+					SoundManager.PlaySE(SoundManager.SE.RECOVERY);
 					salmon.resilient += resilientRecoverNum;
+					if (salmon.resilient > 100) salmon.resilient = 100;
+					Destroy(Instantiate(hitEffect, salmon.transform.position, salmon.transform.localRotation, salmon.gameObject.transform), 1);
 					isHit = true;
+				}
+
+				if (hitColliders.gameObject.GetComponent<Stone>()) {
+					Destroy(hitColliders.gameObject);
 				}
 			}
 		}
+
+		autoRemove();
+	}
+
+	public void autoRemove() {
+		// 画面外に出たら消す処理 
+		if(transCam.position.y > gameObject.transform.position.y + 240 + 32){
+			GameObject.Destroy(this.gameObject);
+		}
+	}
+
+	public void Setup (Transform cam, float x, float y)
+	{
+		// カメラ保持 
+		transCam = cam;
+
+		// パラメータを設定 
+		gameObject.transform.localPosition = new Vector3(x, y, 10);
+
+		// サイズの種類を選択 
+
 	}
 }

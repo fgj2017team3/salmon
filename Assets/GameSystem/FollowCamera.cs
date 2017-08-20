@@ -19,6 +19,8 @@ public class FollowCamera : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	// メンバ変数 
 	//--------------------------------------------------------------------------------
+	static FollowCamera instance;		// シングルトンインスタンス 
+
 	Transform _t; 						// 高速化用Transform 
 
 	[SerializeField]Transform target;	// 追いかける対象 
@@ -30,6 +32,15 @@ public class FollowCamera : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	void Awake ()
 	{
+		// シングルトン作成 
+		if(instance == null){
+			instance = this;
+			DontDestroyOnLoad(this.gameObject);
+		}
+		else{
+			GameObject.Destroy(this.gameObject);
+		}
+
 		// Transfomr保持 
 		_t = this.gameObject.transform;
 	}
@@ -47,6 +58,25 @@ public class FollowCamera : MonoBehaviour
 				_t.localPosition.y + 1,
 				_t.localPosition.z
 			);
+		}
+	}
+
+
+
+	//--------------------------------------------------------------------------------
+	// 画面揺らす 
+	//--------------------------------------------------------------------------------
+	public static void Shake ()
+	{
+		instance.StartCoroutine(instance.ShakeCore());	
+	}
+	IEnumerator ShakeCore ()
+	{
+		Transform parent = _t.parent;
+		for(int i=8; i>=0; i--){
+			float val = (float)i * (i%2==0 ? -1 : 1);
+			parent.position = new Vector3(0, val, 0);
+			yield return new WaitForSeconds(0.02f);
 		}
 	}
 }

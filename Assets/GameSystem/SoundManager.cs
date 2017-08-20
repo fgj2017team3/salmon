@@ -20,16 +20,24 @@ public class SoundManager : MonoBehaviour
 	// 効果音  
 	//--------------------------------------------------------------------------------
 	public enum SE{
-		OK,
+		ATTACK,
 		CANCEL,
+		DAMAGE,
+		NOISE,
+		PUSH,
+		RECOVERY,
 	}
 
 	//--------------------------------------------------------------------------------
 	// BGM 
 	//--------------------------------------------------------------------------------
 	public enum BGM{
+		ENDING,
+		GAMEOVER,
+		STAGE1,
+		STAGE2,
+		STAGE3,
 		TITLE,
-		MAIN,
 	}
 
 	//--------------------------------------------------------------------------------
@@ -37,7 +45,7 @@ public class SoundManager : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	static SoundManager instance;			// シングルトンインスタンス
 
-	[SerializeField]AudioSource[] seList;	// 効果音のリスト  
+	[SerializeField]AudioSource[] seList;	// 効果音のリスト 
 	[SerializeField]AudioSource[] bgmList;	// BGM1のリスト 
 
 
@@ -64,7 +72,7 @@ public class SoundManager : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	public static void PlaySE (SE se)
 	{
-
+		instance.seList[(int)se].Play();
 	}
 
 
@@ -72,9 +80,10 @@ public class SoundManager : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	// BGM再生 
 	//--------------------------------------------------------------------------------
-	public static void PlayBGM (BGM bgm)
+	public static void PlayBGM (BGM bgm, bool isStop=false)
 	{
-
+		if(isStop){ StopBGM(); }
+		instance.bgmList[(int)bgm].Play();
 	}
 
 
@@ -90,6 +99,6 @@ public class SoundManager : MonoBehaviour
 	}
 	public static void StopBGM (BGM bgm)
 	{
-
+		instance.bgmList[(int)bgm].Stop();
 	}
 }

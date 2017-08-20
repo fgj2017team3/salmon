@@ -22,7 +22,7 @@ public class Stage : MonoBehaviour
 	Transform _t;
 
 	[SerializeField]Stone     prefStone;	// 石のプレハブ 
-	[SerializeField]River[]   prefRiver;	// 川のプレハブ(弱い順に) 
+	[SerializeField]River     prefRiver;	// 川のプレハブ(弱い順に) 
 	[SerializeField]Transform transCam;		// カメラの位置を補足しておく 
 
 
@@ -38,12 +38,30 @@ public class Stage : MonoBehaviour
 
 
 	//--------------------------------------------------------------------------------
+	// 最初に実行 
+	//--------------------------------------------------------------------------------
+	void Start ()
+	{
+		SoundManager.PlayBGM(SoundManager.BGM.STAGE1);
+
+		FadeManager.FadeIn(0.5f);
+
+		// 背景設置 
+		for(int i=0; i<9; i++){
+			River river = Instantiate<River>(prefRiver);
+			river.Setup(transCam, (i-4)*64);
+		}
+	}
+
+
+
+	//--------------------------------------------------------------------------------
 	// 更新 
 	//--------------------------------------------------------------------------------
 	void Update ()
 	{
-		if(transCam.position.y > _t.position.y + 240){
-			for(int i=0; i<20; i++){
+		if(transCam.position.y > _t.position.y){
+			for(int i=0; i<60; i++){
 				SpawnStone();
 			}
 			_t.localPosition = new Vector3(
@@ -78,7 +96,7 @@ public class Stage : MonoBehaviour
 		// 左右に分ける 
 		randfX = randfX * (Random.Range(0,2)==0 ? (1):(-1));
 
-		stone.Setup(transCam, randfX, transCam.localPosition.y + SCREEN_HEIGHT + randfY, 0);
+		stone.Setup(transCam, randfX, transCam.localPosition.y + SCREEN_HEIGHT + randfY, Stone.SIZE.NORMAL);
 	}
 
 	//--------------------------------------------------------------------------------
