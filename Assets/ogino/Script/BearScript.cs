@@ -57,11 +57,11 @@ public class BearScript : ResidentsScript {
 
 			// 飛ぶ 
 			t.position = new Vector3(
-				t.position.x + dirX/10 * (isRight ? 1:-1),
-				t.position.y + 4 * (isUp ? 1:-1),
+				t.position.x + dirX/5 * (isRight ? 1:-1),
+				t.position.y + 2 * (isUp ? 1:-1),
 				0
 			);
-			t.localScale = new Vector3(t.localScale.x + 0.5f, t.localScale.y + 0.5f, t.localScale.z + 0.5f);
+			t.localScale = new Vector3(t.localScale.x + 0.1f, t.localScale.y + 0.1f, t.localScale.z + 0.1f);
 
 			yield return null;
 			time += Time.deltaTime;
