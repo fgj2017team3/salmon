@@ -10,6 +10,14 @@ using UnityEngine;
  */
 public class BearScript : ResidentsScript {
 
+	[SerializeField]AudioClip[] selist;	// 効果音のリスト 
+
+	AudioSource se;
+
+	void Start () {
+		se = gameObject.GetComponent<AudioSource>();
+	}
+
 	// Update is called once per frame
 	void Update () {
 		
@@ -20,6 +28,7 @@ public class BearScript : ResidentsScript {
 			if (hitColliders) {
 				// サーモンのスクリプトを持っているか？
 				if (hitColliders.gameObject.GetComponent<Salmon>()) {
+					se.PlayOneShot(selist[0]);
 					Salmon salmon = hitColliders.gameObject.GetComponent<Salmon>();
 					Destroy(salmon.gameObject.GetComponent<BoxCollider2D>());
 					Destroy(Instantiate(hitEffect, transform.localPosition, transform.localRotation, gameObject.transform), 1);
@@ -40,6 +49,7 @@ public class BearScript : ResidentsScript {
 		float time=0;
 		float dirX = Random.Range(0, 320);
 		float rotSpeed = Random.Range(15, 45) * (Random.Range(0,2)==0 ? -1:1);
+		se.PlayOneShot(selist[1]);
 		while(time < 0.5f){
 			Transform t = salmon.transform;
 			// 回る 

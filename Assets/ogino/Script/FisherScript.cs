@@ -9,7 +9,15 @@ using UnityEngine;
  * @author ogino
  */
 public class FisherScript : ResidentsScript {
-	
+
+	[SerializeField]AudioClip[] selist;	// 効果音のリスト 
+
+	AudioSource se;
+
+	void Start () {
+		se = gameObject.GetComponent<AudioSource>();
+	}
+
 	// Update is called once per frame
 	void Update () {
 		if (!isHit) {
@@ -19,6 +27,7 @@ public class FisherScript : ResidentsScript {
 			if (hitColliders) {
 				// サーモンのスクリプトを持っているか？
 				if (hitColliders.gameObject.GetComponent<Salmon>()) {
+					se.PlayOneShot(selist[0]);
 					Salmon salmon = hitColliders.gameObject.GetComponent<Salmon>();
 					Destroy(salmon.gameObject.GetComponent<BoxCollider2D>());
 					Destroy(Instantiate(hitEffect, transform.localPosition, transform.localRotation, gameObject.transform), 1);
@@ -39,6 +48,7 @@ public class FisherScript : ResidentsScript {
 	{
 		float time=0;
 		float rotSpeed = Random.Range(15, 45) * (Random.Range(0,2)==0 ? -1:1);
+		se.PlayOneShot(selist[1]);
 		while(time < 0.5f){
 
 			Transform t = salmon.transform;
