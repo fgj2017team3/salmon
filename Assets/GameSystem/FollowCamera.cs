@@ -52,7 +52,7 @@ public class FollowCamera : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	void Update ()
 	{
-		/*if*/while(target.localPosition.y > _t.localPosition.y){
+		if(target.localPosition.y > _t.localPosition.y){
 			_t.localPosition = new Vector3(
 				_t.localPosition.x,
 				_t.localPosition.y + 1,
